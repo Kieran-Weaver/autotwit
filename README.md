@@ -8,6 +8,14 @@ The Internet Archive's [Twitter Stream](https://archive.org/search.php?query=col
 
 These large tarballs and zip files are designed to be analyzed using Big Data tools such as Apache Hadoop, but they can just as easily be analyzed on consumer hardware. The tools in this repo are designed to scale down as far as laptops released in 2008 with a Core 2 Duo processor, 2 GB of RAM, and 120 GB of storage.
 
-This repo contains the tools developed in the process of downloading and analyzing the Twitter data.
+This repo contains the tools developed in the process of downloading and analyzing the Twitter data. The tools were initially developed locally, and were moved to GitHub when the scope of the project grew.
 
 ## Tools
+
+`scripts/pool.py` automates downloading and extracting tarballs, one month at a time. The output is one .csv.zstd file for archived day of the month, with format
+
+`User ID,Display Name,User Description,Tweet Content`
+
+compressed using Zstandard. Strings are escaped using quotes, and \ is used to escape characters such as newline, tab, or " which would break CSV readers.
+
+`tools/wayback.cpp` is used by `scripts/pool.py` to convert the JSON input to CSV format.
