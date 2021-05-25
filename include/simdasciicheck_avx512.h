@@ -1,0 +1,1 @@
+../submodules/fastvalidate-utf-8/include/simdasciicheck_avx512.h

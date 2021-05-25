@@ -12,6 +12,9 @@ DEPS :=    $(OBJS:.o=.d)
 
 all: $(TARGETS)
 
+tools/wordhash: tools/wordhash.o
+	$(CXX) $(LDFLAGS) -o $@ $< -lxxhash
+
 %: %.o
 
 clean:

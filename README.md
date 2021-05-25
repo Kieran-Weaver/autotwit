@@ -12,6 +12,8 @@ This repo contains the tools developed in the process of downloading and analyzi
 
 ## Tools
 
+### Downloading
+
 `scripts/pool.py` automates downloading and extracting tarballs, one month at a time. The output is one .csv.zstd file for archived day of the month, with format
 
 `User ID,Display Name,User Description,Tweet Content`
@@ -19,3 +21,11 @@ This repo contains the tools developed in the process of downloading and analyzi
 compressed using Zstandard. Strings are escaped using quotes, and \ is used to escape characters such as newline, tab, or " which would break CSV readers.
 
 `tools/wayback.cpp` is used by `scripts/pool.py` to convert the JSON input to CSV format.
+
+### CSV Filters
+
+`tools/ascii` filters the CSV data to only include lines that contain all ASCII characters.
+
+### TF-IDF
+
+`tools/wordhash` sorts IDF data and generates a XOR Filter to speed up later stages of processing.
