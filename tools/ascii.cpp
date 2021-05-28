@@ -23,7 +23,7 @@ int main(void) {
 	while (line) {
 		auto row = readRow(line);
 		// Don't count invalid rows or retweets
-		if ((row.size() >= TEXT) && (row[TEXT].rfind("RT ", 0) != 0) && (isASCII(row[TEXT]))) {
+		if ((row.size() > TEXT) && (row[TEXT].rfind("RT ", 0) != 0) && (isASCII(row[TEXT]))) {
 			std::cout << line << "\n";
 		}
 		line = lr.next_line();

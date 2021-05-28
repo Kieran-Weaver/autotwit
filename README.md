@@ -26,6 +26,8 @@ compressed using Zstandard. Strings are escaped using quotes, and \ is used to e
 
 `tools/ascii` filters the CSV data to only include lines that contain all ASCII characters.
 
+`tools/csvcut` selects columns from the CSV data, depending on which options are provided. For example, running `./tools/csvcut -3 -1 -2 -0` on a CSV file containing `"a","b","c","d"` will print out `"d","b","c","a"`.
+
 ### TF-IDF
 
 `tools/idftool` processes CSV data to generate a list of unique words, and IDF table, and a XOR filter. By default it places them in the current working directory, but that can be changed using the `-p prefix` option.
