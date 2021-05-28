@@ -6,7 +6,7 @@
 #define ID   0
 #define NAME 1
 #define DESC 2
-#define TEXT 2
+#define TEXT 3
 
 bool isASCII(const std::string& str) {
 #ifdef __AVX2__

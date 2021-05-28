@@ -7,3 +7,6 @@
 [submodule "submodules/xor_singleheader"]
 	path = submodules/xor_singleheader
 	url = https://github.com/FastFilter/xor_singleheader
+[submodule "submodules/optparse"]
+	path = submodules/optparse
+	url = https://github.com/skeeto/optparse.git

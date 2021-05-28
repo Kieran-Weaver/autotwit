@@ -28,4 +28,4 @@ compressed using Zstandard. Strings are escaped using quotes, and \ is used to e
 
 ### TF-IDF
 
-`tools/wordhash` sorts IDF data and generates a XOR Filter to speed up later stages of processing.
+`tools/idftool` processes CSV data to generate a list of unique words, and IDF table, and a XOR filter. By default it places them in the current working directory, but that can be changed using the `-p prefix` option.
