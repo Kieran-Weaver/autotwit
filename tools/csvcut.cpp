@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 					std::cout << "\"" << row[columns[i]] << "\",";
 				}
 			}
-			if (columns[i] == PRINT_LINENUM) {
+			if (columns.back() == PRINT_LINENUM) {
 				std::cout << i << "\n";
 			} else {
 				std::cout << "\"" << row[columns.back()] << "\"\n";
