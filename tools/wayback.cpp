@@ -1,5 +1,6 @@
 #include <rapidjson/document.h>
 #include <rapidjson/encodings.h>
+#include <csv.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -15,13 +16,17 @@ void escapestring(const Value& v, std::string& buffer) {
 	
 	for (size_t i = 0; i < len; i++) {
 		switch (st[i]) {
-			case '\n':  buffer += "\\n"; break;
-			case '\r':  buffer += "\\r"; break;
-			case '\t':  buffer += "\\t"; break;
-			case '\\':  buffer += "\\\\"; break;
-			case '\"':  buffer += "\\\""; break;
-			default: buffer.push_back(st[i]); break;
+			case '\n':
+			case '\r':
+			case '\t':
+			case '\\':
+			case '\"':
+				buffer.push_back('\\');
+				break;
+			default:
+				break;
 		}
+		buffer.push_back(st[i]);
 	}
 }
 
@@ -64,40 +69,27 @@ void writeout(const char* cbuf) {
 }
 
 int main(void) {
-	std::array<char, BUF_SIZE> buf1;
-	std::array<char, BUF_SIZE> buf2;
-	uint64_t pos = 1;
-	
-	char* cbuf = buf1.data();
+	io::LineReader lr("STDIN", stdin);
+	const char* line = lr.next_line();
+	std::string buf = "[";
 
-	buf1[0] = '[';
-	buf2[0] = '[';
-
-	std::string line;
-
-	while (std::getline(std::cin, line)) {
-		if ((line.size() + pos) > (BUF_SIZE - 2)) {
-			pos--;
-			cbuf[pos] = ']';
-			cbuf[pos+1] = '\0';
-			writeout(cbuf);
-			if (cbuf == buf1.data()) {
-				cbuf = buf2.data();
-			} else {
-				cbuf = buf1.data();
-			}
-			pos = 1;
+	while (line) {
+		buf.append(line);
+		if (buf.length() > BUF_SIZE) {
+			buf.push_back(']');
+			writeout(buf.c_str());
+			buf = "[";
+		} else {
+			buf.push_back(',');
 		}
-
-		std::copy(line.begin(), line.end() - 1, cbuf + pos);
-		pos += line.size() - 1;
-		cbuf[pos] = ',';
-		pos++;
+		line = lr.next_line();
 	}
 	
-	cbuf[pos - 1] = ']';
-	cbuf[pos] = '\0';
-	writeout(cbuf);
+	if (buf.back() == ',') {
+		buf.pop_back();
+	}
+	buf.push_back(']');
+	writeout(buf.c_str());
 
 	return 0;
 }
