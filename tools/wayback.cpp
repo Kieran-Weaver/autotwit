@@ -17,16 +17,29 @@ void escapestring(const Value& v, std::string& buffer) {
 	for (size_t i = 0; i < len; i++) {
 		switch (st[i]) {
 			case '\n':
+				buffer.push_back('\\');
+				buffer.push_back('n');
+				break;
 			case '\r':
+				buffer.push_back('\\');
+				buffer.push_back('r');
+				break;
 			case '\t':
+				buffer.push_back('\\');
+				buffer.push_back('t');
+				break;
 			case '\\':
-			case '\"':
+				buffer.push_back('\\');
 				buffer.push_back('\\');
 				break;
+			case '\"':
+				buffer.push_back('\\');
+				buffer.push_back('"');
+				break;
 			default:
+				buffer.push_back(st[i]);
 				break;
 		}
-		buffer.push_back(st[i]);
 	}
 }
 
